@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Cake
 from django.shortcuts import redirect
-import pickle, json
+
 import numpy as np
 
 # Create your views here.
