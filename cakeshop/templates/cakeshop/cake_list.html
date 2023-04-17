@@ -1,0 +1,33 @@
+{% extends 'cakeshop/base.html' %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <h1>Cake List</h1>
+    <ul>
+    {% for cake in cakes %}
+        <li>
+            <a href="{% url 'cakeshop:cake_detail' cake.id %}">
+                {{ cake.name }} -- {{ cake.price }} VND
+            </a>
+        </li>
+    {% empty %}
+        <li>No cakes available.</li>
+    {% endfor %}
+    </ul>
+    <h1>Cate List</h1>
+    <ul>
+    {% for cate in cate %}
+        <li>
+            <a href="{% url 'cakeshop:cate_detail' cate.id %}">
+                {{ cate.name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No cate available.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

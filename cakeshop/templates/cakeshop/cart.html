@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Info Responsive</title>
+    <style>
+        body {
+            padding-top: 30px;
+        }
+
+        .row {
+            margin: 4px 0px;
+        }
+
+        .info_content {
+            margin-bottom: 30px;
+        }
+
+        p {
+            text-align: justify;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .category {
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .category h3 {
+            margin-top: 0;
+        }
+
+        .category ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .category li {
+            margin-bottom: 10px;
+        }
+
+        .category a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .products {
+            padding: 20px;
+            width: 100px;
+            display: flex;
+
+        }
+
+        .col-lg-3.product {
+            border: 2px solid red;
+            width: 300px;
+            justify-content: center;
+            margin: 0 !important;
+        }
+
+        .product h4 {
+            margin-top: 10px;
+        }
+
+        .product p {
+            font-size: 14px;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .category {
+                display: none;
+            }
+
+            .products .product {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            {{count}}
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-12 ">
+                <div class="row">
+                    {% if request.session.total %}
+                        <p>Tổng tiền: {{ request.session.total }}</p>
+                    {% endif %}
+                    
+                    <ul class="products">
+                        {% for cart in cart %}
+                        <li class="product">
+
+                            <form class="col-lg-7 product" action="{% url 'cakeshop:update_item' cart.id %}"
+                                method="post">
+                                {% csrf_token %}
+                                <h4>{{ cart.name }}</h4>
+                                <input type="number" name="quantity" value="{{ cart.quantity }}">
+                                <p>{{ cart.price }} VND</p>
+
+                                <button type="submit" class="cart_page-btn_update">Update</button>
+                            </form>
+                            <div class="mt-5 d-flex justify-content-between align-items-center cart_page_align-items-center">
+                                <div>
+                                    <a href="{% url 'cakeshop:remove_item' cart.id %}"
+                                        type="button"
+                                        class="card-link-secondary small text-uppercase mr-3"><i
+                                            class="fas fa-trash-alt mr-1"></i> Remove item </a>
+                            
+                                </div>
+                            </div>
+                            
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
