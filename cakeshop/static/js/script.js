@@ -4,7 +4,7 @@ var value = parseInt(input.value);
 
 function handelMinus() {
     value--;
-    input.value = value < 0 ? 0 : value
+    input.value = value < 1 ? 1 : value
     form.submit()
 }
 
