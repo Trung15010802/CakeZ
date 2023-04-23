@@ -98,7 +98,8 @@ class Cart(View):
                         cart.append(new_item)
             request.session['total'] = total
         context = {'cart': cart}
-        return render(request, 'cakeshop/cart.html', context)
+        # return render(request, 'cakeshop/cart.html', context)
+        return render(request, 'cakeshop/shopping_cart.html', context)
     
     def cart_add(request, pk):
         cart = Cart.get_cart(request)

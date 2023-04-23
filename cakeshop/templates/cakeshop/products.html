@@ -9,7 +9,7 @@
 {% endblock additionalCss %}
 
 {% block content %}
-<div class="main__slider">
+<!-- <div class="main__slider">
     <div class="background-slider">
         <div class="row">
             <div class="col-12 background-slider__column">
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="main__content">
     <div class="container-fluid">
         <div class="row">
@@ -100,8 +100,8 @@
                                 <h4 class="item__name">{{ cake.name }}</h4>
                                 <span class="item__price">{{ cake.price }}</span>
                                 <div class="item__btn">
-                                    <a onclick="reloadPage()"
-                                        class="item__link-cart" id="item__link-btn">
+                                    <a onclick="showModal('{{ cake.id }}')" class="item__link-cart"
+                                        id="item__link-btn">
                                         <i class="fa-solid fa-cart-shopping item__icon"></i>
                                         <span class="item__text">
                                             Order Now !
@@ -112,11 +112,13 @@
                         </div>
                     </div>
                     <div class="modal" id="modal{{ cake.id }}">
-                        <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div> 
+                        <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div>
                         <div class="container item__detail-size">
-                            <div class="row item__detail">
+                            <form action="{% url 'cakeshop:add_to_cart' cake.id %}" method="post" class="row item__detail">
+                                {% csrf_token %}
                                 <div class="col-lg-6">
-                                    <div class="item__detail-background" style="background-image: url('{{ cake.image_url }}');"></div>
+                                    <div class="item__detail-background"
+                                        style="background-image: url('{{ cake.image_url }}');"></div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="item_detail-content">
@@ -127,8 +129,9 @@
                                         <span class="item__price">{{ cake.price }}</span>
                                         <div class="item_detail-quantity-wrapper">
                                             <span class="item_detail-input-label">Quantity</span>
-                                            <input class="item_detail-input" type="number" required name="quantity" id="quantity" min="1"
-                                                value="1" onKeyPress="if(this.value.length==0) return false;" inputmode="numeric"
+                                            <input class="item_detail-input" type="number" required name="quantity"
+                                                id="quantity" min="1" value="1"
+                                                onKeyPress="if(this.value.length==0) return false;" inputmode="numeric"
                                                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                         </div>
                                     </div>
@@ -142,7 +145,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     {% endfor %}
