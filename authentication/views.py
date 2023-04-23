@@ -3,18 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import*
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+
 # Create your views here.
 def get_index(request):
     return render(request, 'cakeshop/cake_list.html')
 
-# def get_register(request):
-#     form = createUserForm()
-#     if request.method == "POST":
-#         form =  createUserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#     context = {'form':form}
-#     return render(request, 'authentication/register.html', context)
 
 def get_register(request):
     if request.method == 'POST': # kiểm tra xem yêu cầu có phải là phương thức POST hay không
@@ -32,7 +25,7 @@ def get_register(request):
                 user.save() # lưu user vào cơ sở dữ liệu
                 messages.success(request, 'You have successfully registered.') # hiển thị thông báo thành công
                 # return redirect('login') # chuyển hướng người dùng đến trang đăng nhập
-                return render(request, 'authentication/login.html')
+                return redirect("/authentication/login/")
 
         else: # nếu hai trường password không giống nhau, hiển thị thông báo lỗi
             er = messages.error(request, 'Passwords do not match.')
@@ -43,9 +36,7 @@ def get_register(request):
         return render(request, 'authentication/register.html')
 
 def get_login(request):
-    # if request.user.is_authenticated:
-    #     # return redirect('register/')
-    #     return render(request, 'authentication/index.html')
+
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -55,10 +46,15 @@ def get_login(request):
             login(request, user)
             # if check_value:
             #     request.session['user_id'] = user.id
-            return render(request,'cakeshop/cake_list.html')
+            # request.session['username'] = username
+            return redirect('/')
         else:
             messages.error(request, 'Email or password not correct!')
             # Invalid login
             # return render(request, 'authentication/login.html', {'error': 'Invalid login credentials.'})
     context = {}
     return render(request, 'authentication/login.html', context)
+
+def get_logout(request):
+    logout(request)
+    return redirect("/authentication/login/")

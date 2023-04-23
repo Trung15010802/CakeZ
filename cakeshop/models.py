@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -31,3 +32,23 @@ class Cake(models.Model):
             Q(quantity__icontains=query) |
             Q(description__icontains=query)
         ).distinct()
+        
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=0)
+
+class Bill(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField()
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    address = models.CharField(max_length=255)
+    town_city = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=12)
+    add_information = models.TextField(max_length=500, null=True, blank=True)
+    cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
+    cake_list = models.JSONField()
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    def __str__(self) -> str:
+        return self.user.username

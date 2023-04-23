@@ -6,6 +6,7 @@
 
 {% block content %}
     <h1>Cake List</h1>
+    <a href="{% url 'authentication:logout' %}">Logout</a>
     <ul>
     {% for cake in cakes %}
         <li>
@@ -19,10 +20,10 @@
     </ul>
     <h1>Cate List</h1>
     <ul>
-    {% for cate in cate %}
+    {% for category in categories %}
         <li>
-            <a href="{% url 'cakeshop:cate_detail' cate.id %}">
-                {{ cate.name }}
+            <a href="{% url 'cakeshop:cate_detail' category.id %}">
+                {{ category.name }}
             </a>
         </li>
     {% empty %}

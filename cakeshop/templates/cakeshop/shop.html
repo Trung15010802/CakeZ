@@ -93,8 +93,12 @@
 <body>
     <div class="container">
         <div class="row">
-            {{count}}
+            <p>count cart</p>{{count}}
+            <br>
+            <p>count: {{ request.session.count }}</p>
+            <a href="{% url 'authentication:logout' %}">Logout</a>
         </div>
+        
         <div class="row">
             <div class="col-md-3 category">
                 <h3>Category</h3>

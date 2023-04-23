@@ -1,0 +1,55 @@
+<!-- create_bill.html -->
+{% extends 'cakeshop/base.html' %}
+
+{% block content %}
+<h1>Create Bill</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
+    <br>
+    <label for="first_name">First name:</label>
+    <input type="text" name="first_name" id="first_name" required>
+    <br>
+    <label for="last_name">Last name:</label>
+    <input type="text" name="last_name" id="last_name" required>
+    <br>
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" required>
+    <br>
+    <label for="town_city">Town/City:</label>
+    <input type="text" name="town_city" id="town_city" required>
+    <br>
+    <label for="phone_number">Phone number:</label>
+    <input type="text" name="phone_number" id="phone_number" required>
+    <br>
+    <label for="add_information">Additional information:</label>
+    <textarea name="add_information" id="add_information"></textarea>
+    <br>
+    <!-- <label for="cake">Cake:</label>
+    <select name="cake" id="cake" required>
+      {% for cake in cakes %}
+      <option value="{{ cake.pk }}">{{ cake.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" id="quantity" min="1" max="10" value="1" required> -->
+    {% for cart in cart %}
+    <li class="product">
+        <!-- <form class="col-lg-7 product" action="{% url 'cakeshop:update_item' cart.id %}"
+            method="post"> -->
+            {% csrf_token %}
+            <h4>{{ cart.name }}</h4>
+            <input type="number" name="quantity" value="{{ cart.quantity }}">
+            <p>{{ cart.price }} VND</p>
+        <!-- </form> -->
+    </li>
+    {% endfor %}
+    <br>
+    {% if request.session.total %}
+        <p>Tổng tiền: {{ request.session.total }}</p>
+    {% endif %}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
