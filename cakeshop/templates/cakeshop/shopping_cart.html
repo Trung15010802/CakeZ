@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
-   
-    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+
+    <!-- <link rel="stylesheet" href="{% static '/css/main.css' %}"> -->
 
 </head>
 
@@ -21,7 +21,7 @@
 
 
     <main class="cart-page-body">
- 
+
         <div class="cart_page_main container">
             <h5>Shopping cart</h5>
             <div class="row cart_page_form">
@@ -33,7 +33,7 @@
                             class="row form-shoping-cart-row">
                             {% csrf_token %}
                             <div class="cart-page-form-product-border-item col-lg-3">
-                                <img class="img-fluid w-100 cart-img" src="{{cart.image_url}}" alt="Sample">
+                                <img class=" cart-img" src="{{cart.image_url}}" alt="Sample">
                             </div>
                             <div class="cart-page-form-product-border-item name-product-item col-lg-3">
                                 <h6>{{ cart.name }}</h6>
@@ -42,7 +42,8 @@
                                 <div class="quantity" id="quanity-amount">
                                     <button type="button" class="minus-btn" onclick="handelMinus()"><i
                                             class="fas fa-minus fa-xs"></i></button>
-                                    <input type="text" name="quantity" id="amount" value="{{ cart.quantity }}">
+                                    <input type="number" name="quantity" id="amount" value="{{ cart.quantity }}"
+                                        class="no-spinners">
                                     <button type="button" class="plus-btn" onclick="handelPlus()"><i
                                             class="fas fa-plus fa-xs"></i></button>
                                 </div>
