@@ -28,8 +28,8 @@
                 <div class="col-md-8 cart-page-form-product">
                     <div class="cart-page-form-product-border">
 
-                        {% for cart in cart %}
-                        <form id="cart-item_form" action="{% url 'cakeshop:update_item' cart.id %}" method="post"
+                        {% for cart in carts %}
+                        <form id="cart-item_form {{cart.id}}" action="{% url 'cakeshop:update_item' cart.id %}" method="post"
                             class="row form-shoping-cart-row">
                             {% csrf_token %}
                             <div class="cart-page-form-product-border-item col-lg-3">
@@ -40,11 +40,12 @@
                             </div>
                             <div class="cart-page-form-product-border-item col-lg-3">
                                 <div class="quantity" id="quanity-amount">
-                                    <button type="button" class="minus-btn" onclick="handelMinus()"><i
+                                    <button type="button" class="minus-btn"
+                                        onclick="handelMinus('{{cart.id}}')"><i
                                             class="fas fa-minus fa-xs"></i></button>
-                                    <input type="number" name="quantity" id="amount" value="{{ cart.quantity }}"
-                                        class="no-spinners">
-                                    <button type="button" class="plus-btn" onclick="handelPlus()"><i
+                                    <input type="number" name="quantity" id="amount {{cart.id}}"
+                                        value="{{ cart.quantity }}" class="no-spinners">
+                                    <button type="button" class="plus-btn" onclick="handelPlus('{{cart.id}}')"><i
                                             class="fas fa-plus fa-xs"></i></button>
                                 </div>
                             </div>

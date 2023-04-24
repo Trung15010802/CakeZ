@@ -104,7 +104,7 @@ class Cart(View):
                                     'image_url': cake.image_url, 'price': price, 'quantity': order.quantity}
                         cart.append(new_item)
             request.session['total'] = total
-        context = {'cart': cart}
+        context = {'carts': cart}
         # return render(request, 'cakeshop/cart.html', context)
         return render(request, 'cakeshop/shopping_cart.html', context)
 
