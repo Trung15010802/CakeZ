@@ -4,6 +4,10 @@
     padding: 0;
 }
 /* header */
+.header-wrapper {
+    justify-content: space-between;
+}
+
 .header {
     width: 100%;
     z-index: 999;
@@ -76,9 +80,36 @@
     font-size: 1.8rem;
 }
 
+.btn-bagshop-cover {
+    /* padding: 10px; */
+}
+
+.btn-bagshop-icon {
+    font-size: 2.4rem;
+    padding: 10px 6px;
+    position: relative;
+}
+
+
+.btn-bagshop-bacground-number {
+    position: absolute;
+    top: 12%;
+    right: -12%;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: red;
+    display: flex;
+}
+
+.btn-bagshop-number {
+    margin: auto;
+    font-size: 1.6rem;
+}
+
 .text-white {
     font-weight: 500;
-    font-size: 1.8rem;
+    font-size: 2.8rem;
 }
 
 .search_button {

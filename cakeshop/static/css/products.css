@@ -286,8 +286,8 @@ body {
 
 .item__detail-background {
     margin: 0px;
-    width: 484px;
-    height: 100%;
+    width: 100%;
+    height: 470px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -295,6 +295,7 @@ body {
 
 .item_detail-content {
     padding: 4%;
+    height: 400px;
 }
 
 .item_detail-name {

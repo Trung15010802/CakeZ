@@ -20,16 +20,18 @@
                 <div class="cart-page-form-product-border">
 
                     {% for cart in carts %}
-                    <form id="cart-item_form {{cart.id}}" action="{% url 'cakeshop:update_item' cart.id %}" method="post"
-                        class="row form-shoping-cart-row">
+                    <form id="cart-item_form {{cart.id}}" action="{% url 'cakeshop:update_item' cart.id %}"
+                        method="post" class="row form-shoping-cart-row">
                         {% csrf_token %}
-                        <div class="cart-page-form-product-border-item col-lg-3">
-                            <img class="img-fluid w-100 cart-img" src="{{cart.image_url}}" alt="Sample">
+                        <div class="cart-page-form-product-border-item col-lg-3 col-md-4 col-sm-4">
+                            <!-- <img class="cart-page-image img-fluid cart-img" src="{{cart.image_url}}" alt="Sample"> -->
+                            <div class="cart-page-image" style="background-image: url({{cart.image_url}});">
+                            </div>
                         </div>
-                        <div class="cart-page-form-product-border-item name-product-item col-lg-3">
-                            <h6>{{ cart.name }}</h6>
+                        <div class="cart-page-form-product-border-item name-product-item col-lg-3 col-md-2 col-sm-3">
+                            <h6 class="cart-page-name">{{ cart.name }}</h6>
                         </div>
-                        <div class="cart-page-form-product-border-item col-lg-3">
+                        <div class="cart-page-form-product-border-item col-lg-3 col-md-2 col-sm-2">
                             <div class="quantity" id="quanity-amount">
                                 <button type="button" class="minus-btn" onclick="handelMinus('{{cart.id}}')"><i
                                         class="fas fa-minus fa-xs"></i></button>
@@ -38,9 +40,10 @@
                                         class="fas fa-plus fa-xs"></i></button>
                             </div>
                         </div>
-                        <div class="cart-page-form-product-border-item col-lg-2"> {{ cart.price }} <span>$</span>
+                        <div class="cart-page-form-product-border-item col-lg-2 col-md-2 col-sm-2"> {{ cart.price }}
+                            <span>$</span>
                         </div>
-                        <div class="cart-page-form-product-border-item col-lg-1">
+                        <div class="cart-page-form-product-border-item col-lg-1 col-md-1 col-sm-1">
                             <a href="{% url 'cakeshop:remove_item' cart.id %}" class=" delete-products-btn"><i
                                     class="fas fa-times fa-lg"></i></a>
                         </div>
@@ -62,7 +65,7 @@
             <div class="col-md-4 cart-page-form-total">
 
                 <div class="cart-page-form-total-border">
-                    <div class="col-6 cart-page-form-total-border-item">
+                    <div class="col-12 cart-page-form-total-border-item">
 
                         <div class="container cart-atm-total-form">
                             <div class="flip-card">
@@ -153,7 +156,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 cart-page-form-total-border-item button-total-cart-page">
+                    <div class="col-12 cart-page-form-total-border-item button-total-cart-page">
                         <input type="button" value="CheckOut">
                     </div>
                     <div class="clearfix"></div>

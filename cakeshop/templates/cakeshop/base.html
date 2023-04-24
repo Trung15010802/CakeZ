@@ -40,20 +40,33 @@
 
 <body>
 
-    
+
   <nav class="header navbar navbar-dark bg-transparent" aria-label="Dark offcanvas navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
         <div class="navbar__logo" style="background-image: url(./static/img/shop_logo.png);"></div>
       </a>
       <div class="btn-wrapper d-flex justify-content-center">
-        <div class="search-box">
+        <form class="search-box" role="search" method="get" action="{% url 'cakeshop:search' %}">
           <button class="btn-search">
             <i class="fas fa-search btn-search-icon"></i>
           </button>
-          <input type="text" class="input-search" placeholder="Type to Search...">
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark"
+          <input type="text" class="input-search" placeholder="Type to Search..." name="query">
+        </form>
+        <button class="navbar-toggler btn-bagshop-cover">
+          <a class="text-white" href="{% url 'cakeshop:cart' %}">
+            <i class="fas fa-bag-shopping btn-bagshop-icon">
+              {% if request.session.count != 0 %}
+              <div class="btn-bagshop-bacground-number">
+                <span class="btn-bagshop-number">
+                  {{ request.session.count }}
+                </span>
+              </div>
+              {% endif %}
+            </i>
+          </a>
+        </button>
+        <button class="navbar-toggler" type="submit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarDark"
           aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon text-dark"></span>
         </button>
@@ -81,20 +94,23 @@
               <a class="nav-link active" href="#">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'cakeshop:cart' %}">Shop cart</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link active" href="#">History cart</a>
             </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-link active">
+              <a class="nav-link active" href="">{{ request.user }}</a>
+            </li>
+            <li class="nav-link active" class="nav-item">
+              <a class="nav-link active" href="{% url 'authentication:logout' %}">Logout</a>
+            </li>
+            {% else %}
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'authentication:login' %}">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'authentication:register' %}">Register</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'authentication:logout' %}">Logout</a>
-            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -149,12 +165,13 @@
           </div>
           <div class="col-md-6 col-lg-2 mx-auto mb-4">
             <h6 class="text-uppercase footer__title fw-bold mb-4">
-              Products
+              Categories
             </h6>
 
             {% for category in categories %}
             <p>
-              <a href="{% url 'cakeshop:cate_detail' category.id %}" class="text-reset footer__content">{{category.name}}</a>
+              <a href="{% url 'cakeshop:cate_detail' category.id %}"
+                class="text-reset footer__content">{{category.name}}</a>
             </p>
             {% endfor %}
           </div>

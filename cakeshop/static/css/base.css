@@ -89,8 +89,8 @@ a {
     backdrop-filter: blur(22px);
 }
 
-.navbar-toggler {
-
+.navbar-toggler:focus {
+    z-index: 5;
 }
 
 .input-search {
@@ -156,6 +156,7 @@ a {
 /* Modal */
 .modal {
     position: fixed;
+    padding: 0;
     top: 0;
     right: 0;
     left: 0;

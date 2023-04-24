@@ -16,6 +16,13 @@ class Home(View):
         cakes = Cake.objects.all().order_by('-id')
         if request.user.is_authenticated:
             Cart.switch_to_order(request)
+            orders = Order.objects.filter(user=request.user)
+            count = len(orders)
+            request.session['count'] = count
+        else:
+            cart = Cart.get_cart(request)
+            count = len(cart)
+            request.session['count'] = count
         context = {'categories': categories, 'cakes': cakes}
         # return render(request, 'cakeshop/cake_list.html', context)
         return render(request, 'cakeshop/index.html', context)
@@ -25,8 +32,14 @@ class Shop(View):
     def cakes_list(request):
         cakes = Cake.objects.all().order_by('-id')
         categories = Category.objects.all()
-        cart = Cart.get_cart(request)
-        count = len(cart)
+        if request.user.is_authenticated == False:
+            cart = Cart.get_cart(request)
+            count = len(cart)
+            request.session['count'] = count
+        else: 
+            orders = Order.objects.filter(user=request.user)
+            count = len(orders)
+            request.session['count'] = count
         context = {'cakes': cakes, 'categories': categories, 'count': count}
         # return render(request, 'cakeshop/shop.html', context)
         return render(request, 'cakeshop/products.html', context)
@@ -39,9 +52,7 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        cart = Cart.get_cart(request)
-        count = len(cart)
-        context = {'categories': categories, 'cakes': cakes, 'count': count}
+        context = {'categories': categories, 'cakes': cakes}
         # return render(request, 'cakeshop/shop.html', context)
         return render(request, 'cakeshop/products.html', context)
 
@@ -52,10 +63,7 @@ class Shop(View):
     def cate_detail(request, pk):
         categories = Category.objects.all()
         cakes = Cake.objects.filter(category=pk)
-
-        cart = Cart.get_cart(request)
-        count = len(cart)
-        context = {'categories': categories, 'cakes': cakes, 'count': count}
+        context = {'categories': categories, 'cakes': cakes}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 
@@ -128,7 +136,7 @@ class Cart(View):
                             'price': float(cake.price), 'quantity': 1}
                 cart.append(new_item)
             count = len(cart)
-            request.session['countCart'] = count
+            request.session['count'] = count
             request.session['cart'] = cart
             total = sum([float(item['price']) for item in cart])
         else:
@@ -147,7 +155,6 @@ class Cart(View):
             if not cake_exit:
                 order = Order.objects.create(
                     user=username, cake_id=item['id'], quantity=item['quantity'])
-                print(order)
                 order.save()
             orders = Order.objects.filter(user=username)
             count = len(orders)
