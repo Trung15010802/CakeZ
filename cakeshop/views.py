@@ -124,7 +124,7 @@ class Cart(View):
 
             if not cake_exit:
                 # new_item = {'id': pk, 'name': cake.name, 'price': float(cake.price * quantity), 'quantity': quantity}
-                new_item = {'id': pk, 'name': cake.name,
+                new_item = {'id': pk, 'name': cake.name, 'image_url': cake.image_url,
                             'price': float(cake.price), 'quantity': 1}
                 cart.append(new_item)
             count = len(cart)
