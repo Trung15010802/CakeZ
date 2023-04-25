@@ -47,7 +47,6 @@ class Bill(models.Model):
     town_city = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=12)
     add_information = models.TextField(max_length=500, null=True, blank=True)
-    cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
     cake_list = models.JSONField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     def __str__(self) -> str:
