@@ -9,6 +9,8 @@ from django.views import View
 from django.urls import reverse
 import datetime
 # class
+
+
 class Home(View):
     def home(request):
         categories = Category.objects.all()
@@ -23,7 +25,7 @@ class Home(View):
             count = len(cart)
             request.session['count'] = count
         context = {'categories': categories, 'cakes': cakes}
-        # return render(request, 'cakeshop/cake_list.html', context)
+
         return render(request, 'cakeshop/index.html', context)
 
 
@@ -35,12 +37,11 @@ class Shop(View):
             cart = Cart.get_cart(request)
             count = len(cart)
             request.session['count'] = count
-        else: 
+        else:
             orders = Order.objects.filter(user=request.user)
             count = len(orders)
             request.session['count'] = count
         context = {'cakes': cakes, 'categories': categories, 'count': count}
-        # return render(request, 'cakeshop/shop.html', context)
         return render(request, 'cakeshop/products.html', context)
 
     def search(request):
@@ -52,7 +53,7 @@ class Shop(View):
 
         categories = Category.objects.all()
         context = {'categories': categories, 'cakes': cakes}
-        # return render(request, 'cakeshop/shop.html', context)
+
         return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
@@ -121,17 +122,17 @@ class Cart(View):
         cake = get_object_or_404(Cake, pk=pk)
         total = 0
         quantity = int(request.POST.get('quantity', 0))
-        # quantity = request.POST.get('quantity')
+
         if request.user.is_authenticated == False:
             for item in cart:
                 if item['id'] == pk:
-                    # item['quantity'] += 1
+
                     item['quantity'] += quantity
                     item['price'] = float(cake.price) + item['quantity']
                     cake_exit = True
 
             if not cake_exit:
-                # new_item = {'id': pk, 'name': cake.name, 'price': float(cake.price * quantity), 'quantity': quantity}
+
                 new_item = {'id': pk, 'name': cake.name, 'image_url': cake.image_url,
                             'price': float(cake.price), 'quantity': quantity}
                 cart.append(new_item)
@@ -225,7 +226,7 @@ class BillView(View):
         bill = get_object_or_404(Bill, pk=pk)
         cake_list = json.loads(bill.cake_list)
         context = {'bill': bill, 'cake_list': cake_list}
-        return render(request, 'cakeshop/bill.html', context)
+        return render(request, ['cakeshop/bill.html', 'cakeshop/purchase_history.html'], context)
 
     def create_bill(request):
         if request.user.is_authenticated == False:
@@ -280,3 +281,8 @@ class BillView(View):
                 request.session['total'] = total
                 context = {'cart': cart}
                 return render(request, 'cakeshop/create_bill.html', context)
+
+    def get_all_bill(request):
+        bills = Bill.objects.all()
+
+        return render(request, 'cakeshop/purchase_history.html', {'bills': bills})
