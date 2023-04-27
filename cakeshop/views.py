@@ -7,9 +7,8 @@ import json
 import numpy as np
 from django.views import View
 from django.urls import reverse
+import datetime
 # class
-
-
 class Home(View):
     def home(request):
         categories = Category.objects.all()
@@ -121,19 +120,20 @@ class Cart(View):
         cake_exit = False
         cake = get_object_or_404(Cake, pk=pk)
         total = 0
+        quantity = int(request.POST.get('quantity', 0))
         # quantity = request.POST.get('quantity')
         if request.user.is_authenticated == False:
             for item in cart:
                 if item['id'] == pk:
-                    item['quantity'] += 1
-                    # item['quantity'] += quantity
+                    # item['quantity'] += 1
+                    item['quantity'] += quantity
                     item['price'] = float(cake.price) + item['quantity']
                     cake_exit = True
 
             if not cake_exit:
                 # new_item = {'id': pk, 'name': cake.name, 'price': float(cake.price * quantity), 'quantity': quantity}
                 new_item = {'id': pk, 'name': cake.name, 'image_url': cake.image_url,
-                            'price': float(cake.price), 'quantity': 1}
+                            'price': float(cake.price), 'quantity': quantity}
                 cart.append(new_item)
             count = len(cart)
             request.session['count'] = count
