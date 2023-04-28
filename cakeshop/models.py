@@ -16,7 +16,7 @@ class Cake(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    quantity = models.DecimalField(max_digits=8, decimal_places=0)
+    quantity = models.IntegerField()
     description = models.TextField()
     image_url = models.TextField(null=True, blank=True)
 
@@ -36,7 +36,7 @@ class Cake(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=10, decimal_places=0)
+    quantity = models.IntegerField()
 
 class Bill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -256,7 +256,7 @@ class BillView(View):
                             cake.quantity -= quantity
                             cake.save()
                             cake_list.append(
-                                {'cake_name': cake_name, 'quantity': float(quantity)})
+                                {'cake_name': cake_name, 'price': float(cake.price), 'quantity': int(quantity)})
 
                 cake_list = json.dumps(cake_list)
                 bill = Bill.objects.create(user=username, email=email, first_name=first_name, last_name=last_name, address=address, town_city=town_city,
@@ -283,6 +283,17 @@ class BillView(View):
                 return render(request, 'cakeshop/create_bill.html', context)
 
     def get_all_bill(request):
-        bills = Bill.objects.all()
-
-        return render(request, 'cakeshop/purchase_history.html', {'bills': bills})
+        bill_list = Bill.objects.filter(user=request.user)
+        bills = []
+        for bill in bill_list:
+            cake_list = json.loads(bill.cake_list)
+            new_bill = {'email': bill.email, 'phone_number': bill.phone_number,
+                        'first_name': bill.first_name, 'last_name': bill.last_name,
+                        'town_city': bill.town_city,'address': bill.address, 
+                        'date': bill.date, 'note': bill.add_information,
+                        'cake_list': cake_list, 'total': float(bill.total_price)}
+            
+            bills.append(new_bill)
+    
+        context = {'bills': bills}
+        return render(request, 'cakeshop/purchase_history.html', context)

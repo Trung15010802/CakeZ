@@ -67,13 +67,13 @@
         {% csrf_token %}
         <h4 class="product__name">{{ cart.name }}</h4>
         <input class="product__input" type="number" name="quantity" value="{{ cart.quantity }}">
-        <p class="product__price">{{ cart.price }} VND</p>
+        <p class="product__price">${{ cart.price }}</p>
         <!-- </form> -->
       </div>
       {% endfor %}
 
       {% if request.session.total %}
-      <p class="product__totalprice">Tổng tiền: {{ request.session.total }}</p>
+      <p class="product__totalprice">Total price: ${{ request.session.total }}</p>
       {% endif %}
 
       <input class="product__btn-submit" type="submit" value="Submit">

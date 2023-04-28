@@ -49,71 +49,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                    aria-controls="collapseOne">
-                                    <td>Anh Thai</td>
-                                    <td>Tran Ngoc</td>
-                                    <td>123/luuhuucanh/Q9</td>
-                                    <td>HCM</td>
-                                    <th scope="row">anhthai1810@gmail.com</th>
-                                    <td>8499999999</td>
-                                    <td>12/12/20024</td>
-                                    <td>2</td>
-                                    <td>$400.00</td>
-                                    <td>
-                                        <i class="fa" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="12" id="collapseOne" class="collapse acc detail_box"
-                                        data-parent="#accordion">
-                                        <table class="table myaccordion table-hover" id="accordion">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Products</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr data-toggle="collapse" data-target="#collapseOne"
-                                                    aria-expanded="true" aria-controls="collapseOne">
-                                                    <th scope="row">1</th>
-                                                    <td>Bánh mì</td>
-                                                    <td>30.000</td>
-                                                    <td>2</td>
-                                                    <td>$400.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table myaccordion table-hover" id="accordion">
-                                            <thead>
-                                                <tr>
-                                                    <th>Note</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr data-toggle="collapse" data-target="#collapseOne"
-                                                    aria-expanded="true" aria-controls="collapseOne">
-                                                    <td>
-                                                        <p>There are many variations of passages of Lorem Ipsum
-                                                            available, but the majority have suffered alteration in some
-                                                            form, by injected humour, or randomised words which don't
-                                                            look even slightly believable. If you are going to use a
-                                                            passage of Lorem Ipsum, you need to be sure there isn't
-                                                            anything embarrassing hidden in the middle of text. All the
-                                                            Lorem Ipsum generators on the Internet tend to repeat
-                                                            predefined chunks as necessary, making this the first true
-                                                            generator on the Internet.</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-
                                 {% for billItem in bills %}
                                 <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                                     aria-controls="collapseOne">
@@ -125,11 +60,11 @@
                                     <td>{{billItem.phone_number}}</td>
                                     <td>{{billItem.date}}</td>
                                     <td>
-                                        {% for cake in cake_list %}
+                                        {% for cake in billItem.cake_list %}
                                         {{ cake.quantity }}
                                         {% endfor %}
                                     </td>
-                                    <td></td>
+                                    <td>${{ billItem.total }}</td>
                                     <td>
                                         <i class="fa" aria-hidden="true"></i>
                                     </td>
@@ -151,10 +86,22 @@
                                                 <tr data-toggle="collapse" data-target="#collapseOne"
                                                     aria-expanded="true" aria-controls="collapseOne">
                                                     <th scope="row">1</th>
-                                                    <td>Bánh mì</td>
-                                                    <td>30.000</td>
-                                                    <td>2</td>
-                                                    <td>$400.00</td>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                        {{ cakes.cake_name }} <br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                            ${{ cakes.price }}<br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        {% for cakes in billItem.cake_list %}
+                                                        {{ cakes.quantity }} <br>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>${{ billItem.total }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -168,15 +115,7 @@
                                                 <tr data-toggle="collapse" data-target="#collapseOne"
                                                     aria-expanded="true" aria-controls="collapseOne">
                                                     <td>
-                                                        <p>There are many variations of passages of Lorem Ipsum
-                                                            available, but the majority have suffered alteration in some
-                                                            form, by injected humour, or randomised words which don't
-                                                            look even slightly believable. If you are going to use a
-                                                            passage of Lorem Ipsum, you need to be sure there isn't
-                                                            anything embarrassing hidden in the middle of text. All the
-                                                            Lorem Ipsum generators on the Internet tend to repeat
-                                                            predefined chunks as necessary, making this the first true
-                                                            generator on the Internet.</p>
+                                                        <p>{{ billItem.note }}</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -184,8 +123,6 @@
                                     </td>
                                 </tr>
                                 {% endfor %}
-
-
                             </tbody>
                         </table>
                     </div>
