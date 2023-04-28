@@ -50,8 +50,9 @@
                             </thead>
                             <tbody>
                                 {% for billItem in bills %}
-                                <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                    aria-controls="collapseOne">
+                            
+                                <tr data-toggle="collapse" data-target="#collapseOne_{{ billItem.id }}" aria-expanded="true"
+                                    aria-controls="collapseOne_{{ billItem.id }}">
                                     <td>{{billItem.first_name}}</td>
                                     <td>{{billItem.last_name}}</td>
                                     <td>{{billItem.address}}</td>
@@ -70,7 +71,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="12" id="collapseOne" class="collapse acc detail_box"
+                                    <td colspan="12" id="collapseOne_{{ billItem.id }}" class="collapse acc detail_box"
                                         data-parent="#accordion">
                                         <table class="table myaccordion table-hover" id="accordion">
                                             <thead>
@@ -93,7 +94,7 @@
                                                     </td>
                                                     <td>
                                                         {% for cakes in billItem.cake_list %}
-                                                            ${{ cakes.price }}<br>
+                                                        ${{ cakes.price }}<br>
                                                         {% endfor %}
                                                     </td>
                                                     <td>
@@ -131,9 +132,9 @@
         </div>
     </section>
     <script src="{% static 'js/jquey.min.js' %}"></script>
-    <script src="{% static 'js/popper.js' %}"></script>
+    <!-- <script src="{% static 'js/popper.js' %}"></script> -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <!-- <script src="{% static 'js/main.js' %}"></script> -->
     <script defer
         src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
         integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="

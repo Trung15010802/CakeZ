@@ -287,13 +287,13 @@ class BillView(View):
         bills = []
         for bill in bill_list:
             cake_list = json.loads(bill.cake_list)
-            new_bill = {'email': bill.email, 'phone_number': bill.phone_number,
+            new_bill = {'id': bill.id, 'email': bill.email, 'phone_number': bill.phone_number,
                         'first_name': bill.first_name, 'last_name': bill.last_name,
-                        'town_city': bill.town_city,'address': bill.address, 
+                        'town_city': bill.town_city, 'address': bill.address,
                         'date': bill.date, 'note': bill.add_information,
                         'cake_list': cake_list, 'total': float(bill.total_price)}
-            
+
             bills.append(new_bill)
-    
+
         context = {'bills': bills}
         return render(request, 'cakeshop/purchase_history.html', context)
