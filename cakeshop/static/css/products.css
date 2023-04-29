@@ -299,13 +299,15 @@ body {
 }
 
 .item_detail-name {
-    font-size: 6.8rem;
+    font-size: 2.8rem;
     font-weight: 700;
 }
 
 .item_detail-para {
     font-size: 1.8rem;
     text-align: justify;
+    overflow: scroll;
+    height: calc(400px - 2.8rem - 140px);
 }
 
 .item_detail-quantity-wrapper {
