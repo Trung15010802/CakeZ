@@ -108,7 +108,7 @@
                                             <h1 class="item_detail-name">{{ cake.name }}</h1>
                                             <p class="item_detail-para">
                                                 {{ cake.description }}
-                                             
+
                                             </p>
                                             <span class="item__price">{{ cake.price }}</span>
                                             <div class="item_detail-quantity-wrapper">
@@ -141,16 +141,24 @@
                     {% endfor %}
                 </div>
                 <div class="row">
-                    <h3 class="company_name">Special taste !</h3>
+                    <h3 class="company_name">Budget-Friendly Cake Selection</h3>
                     <div class="company-wrapper">
+              
+
+                        {% for cake in cheap_cakes %}
                         <div class="col-12 company-item">
-                            <a href="#" class="company_link">
+                            <center><h3>{{cake.name}}</h3></center>
+                            <a id="it{{ cake.id }}" onclick="showModal('{{ cake.id }}')" class="company_link">
                                 <div class="company_bacground"
-                                    style="background-image: url(./static/img/slider_1.png);">
+                                    style="background-image: url('{{cake.image_url}}');">
                                 </div>
+                                
                             </a>
                         </div>
-                       
+                        {% endfor %}
+
+
+
                     </div>
                 </div>
             </div>

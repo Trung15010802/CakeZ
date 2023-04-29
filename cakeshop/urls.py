@@ -16,4 +16,6 @@ urlpatterns = [
     path('bill/<int:pk>/', views.BillView.get_bill, name='bill'),
     path('bill/create/', views.BillView.create_bill, name='create_bill'),
     path('history/', views.BillView.get_all_bill, name='purchase_history'),
+  
+
 ]

@@ -33,6 +33,8 @@ class Shop(View):
     def cakes_list(request):
         cakes = Cake.objects.all().order_by('-id')
         categories = Category.objects.all()
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+
         if request.user.is_authenticated == False:
             cart = Cart.get_cart(request)
             count = len(cart)
@@ -41,7 +43,8 @@ class Shop(View):
             orders = Order.objects.filter(user=request.user)
             count = len(orders)
             request.session['count'] = count
-        context = {'cakes': cakes, 'categories': categories, 'count': count}
+        context = {'cakes': cakes, 'categories': categories, 'count': count,
+                   'cheap_cakes': cheap_cakes, }
         return render(request, 'cakeshop/products.html', context)
 
     def search(request):
