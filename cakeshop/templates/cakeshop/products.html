@@ -80,7 +80,7 @@
                             </a>
                             <div class="item__info">
                                 <h4 class="item__name">{{ cake.name }}</h4>
-                                <span class="item__price">{{ cake.price }}</span>
+                                <span class="item__price">${{ cake.price }}</span>
                                 <div class="item__btn">
                                     <a onclick="showModal('{{ cake.id }}')" class="item__link-cart" id="item__link-btn">
                                         <i class="fa-solid fa-cart-shopping item__icon"></i>
@@ -110,7 +110,7 @@
                                                 {{ cake.description }}
 
                                             </p>
-                                            <span class="item__price">{{ cake.price }}</span>
+                                            <span class="item__price">${{ cake.price }}</span>
                                             <div class="item_detail-quantity-wrapper">
                                                 <span class="item_detail-input-label">Quantity</span>
                                                 <input class="item_detail-input" type="number" required name="quantity"
@@ -143,8 +143,6 @@
                 <div class="row">
                     <h3 class="company_name">Budget-Friendly Cake Selection</h3>
                     <div class="company-wrapper">
-              
-
                         {% for cake in cheap_cakes %}
                         <div class="col-12 company-item">
                             <center><h3>{{cake.name}}</h3></center>
@@ -156,9 +154,6 @@
                             </a>
                         </div>
                         {% endfor %}
-
-
-
                     </div>
                 </div>
             </div>
