@@ -9,7 +9,28 @@
 {% endblock additionalCss %}
 
 {% block content %}
-
+<div class="main__slider">
+    <div class="background-slider">
+        <div class="row">
+            <div class="col-12 background-slider__column">
+                <div class="background-slider__list">
+                    <div class="background-slider__item background-slider__item-products img-fluid"
+                        style="background-image: url(/static/img/slider_1.png);">
+                        <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
+                    </div>
+                    <div class="background-slider__item background-slider__item-products img-fluid"
+                        style="background-image: url(/static/img/slider_2.png);">
+                        <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
+                    </div>
+                    <div class="background-slider__item background-slider__item-products img-fluid"
+                        style="background-image: url(/static/img/slider_3.png);">
+                        <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="main__content">
     <div class="container-fluid">
         <div class="row">
@@ -19,7 +40,6 @@
                         <h3 class="content__category-title">Category</h3>
                     </div>
                     <ul class="row content__category-list">
-
                         {% for category in categories %}
                         <a href="{% url 'cakeshop:cate_detail' category.id %}"
                             class="col-lg-12 col-md-2 col-sm-3 content__category-link">
@@ -34,7 +54,7 @@
                     <div class="row">
                         <a href="#">
                             <div class="advertisement__picture shine-box"
-                                style="background-image: url(./static/img/adv_2.jpg);">
+                                style="background-image: url(./static/img/slider_2.png);">
                                 <div class="advertisement__discount-bg">
                                     <span class="advertisement__discount-text">-50%</span>
                                 </div>
@@ -145,12 +165,13 @@
                     <div class="company-wrapper">
                         {% for cake in cheap_cakes %}
                         <div class="col-12 company-item">
-                            <center><h3>{{cake.name}}</h3></center>
                             <a id="it{{ cake.id }}" onclick="showModal('{{ cake.id }}')" class="company_link">
-                                <div class="company_bacground"
+                                <div class="company_bacground shine-box"
                                     style="background-image: url('{{cake.image_url}}');">
+                                    <div class="company_name-wrapper">
+                                        <center><span class="company_name-text">{{cake.name}}</span></center>
+                                    </div>
                                 </div>
-                                
                             </a>
                         </div>
                         {% endfor %}

@@ -142,6 +142,10 @@
     /* background-attachment: fixed !important; */
 }
 
+.background-slider__item-products {
+    height: 18vh !important;
+}
+
 .background-slider__content {
     left: 140px;
     top: 140px;
