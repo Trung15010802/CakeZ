@@ -112,48 +112,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal" id="modal{{ cake.id }}">
-                        <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div>
-                        <div class="container item__detail-size">
-                            <div class="row item__detail">
-                                <form action="{% url 'cakeshop:add_to_cart' cake.id %}" method="post"
-                                    class="row item__detail" style="padding: 0px;">
-                                    {% csrf_token %}
-                                    <div class="col-lg-6 col-sm-12">
-                                        <div class="item__detail-background"
-                                            style="background-image: url('{{ cake.image_url }}');"></div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-12">
-                                        <div class="item_detail-content">
-                                            <h1 class="item_detail-name">{{ cake.name }}</h1>
-                                            <p class="item_detail-para">
-                                                {{ cake.description }}
 
-                                            </p>
-                                            <span class="item__price">${{ cake.price }}</span>
-                                            <div class="item_detail-quantity-wrapper">
-                                                <span class="item_detail-input-label">Quantity</span>
-                                                <input class="item_detail-input" type="number" required name="quantity"
-                                                    id="quantity" min="1" value="1"
-                                                    onKeyPress="if(this.value.length==0) return false;"
-                                                    inputmode="numeric"
-                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-                                            </div>
-                                        </div>
-                                        <div class="item_detail-btn-wrapper">
-                                            <button type="submit" class="item_detail-btn-add">
-                                                <i class="fa-solid fa-cake shop-item__link-icon"></i>
-                                                <i class="fa-duotone fa-pie shop-item__link-icon"></i>
-                                                <span class="shop-item__link-text">
-                                                    Order now !
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     {% empty %}
                     <center>
                         <h2>No cake available.</h2>
@@ -163,7 +122,7 @@
 
                 </div>
 
-                
+
                 {% if cakes.has_other_pages %}
                 <ul class="pagination">
                     {% if cakes.has_previous %}
@@ -213,7 +172,7 @@
                 <a href="?page={{ cakes.paginator.num_pages }}">last &raquo;</a>
 
                 {% endif %}
-                <!-- {% endif %} -->
+                {% endif %}
 
 
                 <div class="row">
@@ -230,6 +189,7 @@
                                 </div>
                             </a>
                         </div>
+
                         {% endfor %}
                     </div>
                 </div>
@@ -305,6 +265,50 @@
     </div>
 </div>
 
+
+
+{% for cake in modals %}
+<div class="modal" id="modal{{ cake.id }}">
+    <div class="modal__overlay" onclick="hideModal('{{ cake.id }}')"></div>
+    <div class="container item__detail-size">
+        <div class="row item__detail">
+            <form action="{% url 'cakeshop:add_to_cart' cake.id %}" method="post" class="row item__detail"
+                style="padding: 0px;">
+                {% csrf_token %}
+                <div class="col-lg-6 col-sm-12">
+                    <div class="item__detail-background" style="background-image: url('{{ cake.image_url }}');"></div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="item_detail-content">
+                        <h1 class="item_detail-name">{{ cake.name }}</h1>
+                        <p class="item_detail-para">
+                            {{ cake.description }}
+
+                        </p>
+                        <span class="item__price">${{ cake.price }}</span>
+                        <div class="item_detail-quantity-wrapper">
+                            <span class="item_detail-input-label">Quantity</span>
+                            <input class="item_detail-input" type="number" required name="quantity" id="quantity"
+                                min="1" value="1" onKeyPress="if(this.value.length==0) return false;"
+                                inputmode="numeric"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                        </div>
+                    </div>
+                    <div class="item_detail-btn-wrapper">
+                        <button type="submit" class="item_detail-btn-add">
+                            <i class="fa-solid fa-cake shop-item__link-icon"></i>
+                            <i class="fa-duotone fa-pie shop-item__link-icon"></i>
+                            <span class="shop-item__link-text">
+                                Order now !
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 
 

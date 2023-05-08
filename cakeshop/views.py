@@ -32,6 +32,7 @@ class Home(View):
 class Shop(View):
     def cakes_list(request):
         cakes = Cake.objects.all().order_by('-id')
+       
         categories = Category.objects.all()
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
         paginator = Paginator(cakes, 1)  # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
@@ -47,7 +48,7 @@ class Shop(View):
             count = len(orders)
             request.session['count'] = count
         context = {'cakes': page_obj, 'categories': categories, 'count': count,
-                   'cheap_cakes': cheap_cakes, }
+                   'cheap_cakes': cheap_cakes, 'modals': cakes}
         return render(request, 'cakeshop/products.html', context)
 
     def search(request):
