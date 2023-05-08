@@ -34,7 +34,7 @@ class Shop(View):
         cakes = Cake.objects.all().order_by('-id')
         categories = Category.objects.all()
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
-        paginator = Paginator(cakes, 9)  # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
+        paginator = Paginator(cakes, 1)  # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
         page_number = request.GET.get('page'    )  # lấy số trang được yêu cầu từ query string
         page_obj = paginator.get_page(page_number)  # trả về đối tượng trang được yêu cầu
 
