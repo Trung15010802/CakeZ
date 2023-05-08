@@ -159,6 +159,24 @@
                         <h2>No cake available.</h2>
                     </center>
                     {% endfor %}
+
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if cakes.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ cakes.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ cakes.number }} of {{ cakes.paginator.num_pages }}.
+                            </span>
+
+                            {% if cakes.has_next %}
+                            <a href="?page={{ cakes.next_page_number }}">next</a>
+                            <a href="?page={{ cakes.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
                 <div class="row">
                     <h3 class="company_name">Budget-Friendly Cake Selection</h3>

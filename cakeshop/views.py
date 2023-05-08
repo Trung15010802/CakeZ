@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Cake, Order, Bill
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-import pickle
 import json
 import numpy as np
 from django.views import View
 from django.urls import reverse
-import datetime
+from django.core.paginator import Paginator
+
 # class
 
 
@@ -34,6 +34,9 @@ class Shop(View):
         cakes = Cake.objects.all().order_by('-id')
         categories = Category.objects.all()
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        paginator = Paginator(cakes, 9)  # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
+        page_number = request.GET.get('page'    )  # lấy số trang được yêu cầu từ query string
+        page_obj = paginator.get_page(page_number)  # trả về đối tượng trang được yêu cầu
 
         if request.user.is_authenticated == False:
             cart = Cart.get_cart(request)
@@ -43,7 +46,7 @@ class Shop(View):
             orders = Order.objects.filter(user=request.user)
             count = len(orders)
             request.session['count'] = count
-        context = {'cakes': cakes, 'categories': categories, 'count': count,
+        context = {'cakes': page_obj, 'categories': categories, 'count': count,
                    'cheap_cakes': cheap_cakes, }
         return render(request, 'cakeshop/products.html', context)
 
