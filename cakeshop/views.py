@@ -32,12 +32,15 @@ class Home(View):
 class Shop(View):
     def cakes_list(request):
         cakes = Cake.objects.all().order_by('-id')
-       
+
         categories = Category.objects.all()
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
-        paginator = Paginator(cakes, 9)  # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
-        page_number = request.GET.get('page'    )  # lấy số trang được yêu cầu từ query string
-        page_obj = paginator.get_page(page_number)  # trả về đối tượng trang được yêu cầu
+        # chia danh sách sản phẩm thành các trang chứa 10 sản phẩm mỗi trang
+        paginator = Paginator(cakes, 9)
+        # lấy số trang được yêu cầu từ query string
+        page_number = request.GET.get('page')
+        # trả về đối tượng trang được yêu cầu
+        page_obj = paginator.get_page(page_number)
 
         if request.user.is_authenticated == False:
             cart = Cart.get_cart(request)
@@ -59,7 +62,7 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        context = {'categories': categories, 'cakes': cakes}
+        context = {'categories': categories, 'cakes': cakes,'modals': cakes}
 
         return render(request, 'cakeshop/products.html', context)
 
@@ -70,7 +73,9 @@ class Shop(View):
     def cate_detail(request, pk):
         categories = Category.objects.all()
         cakes = Cake.objects.filter(category=pk)
-        context = {'categories': categories, 'cakes': cakes}
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        context = {'categories': categories,
+                   'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cakes}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 
