@@ -62,8 +62,9 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        context = {'categories': categories, 'cakes': cakes, 'modals': cakes}
-
+        
+        cheap_cakes = Cake.objects.all().order_by('price')[:20]
+        context = {'categories': categories, 'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cheap_cakes}
         return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
