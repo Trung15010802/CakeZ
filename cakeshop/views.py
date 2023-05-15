@@ -62,7 +62,7 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        context = {'categories': categories, 'cakes': cakes,'modals': cakes}
+        context = {'categories': categories, 'cakes': cakes, 'modals': cakes}
 
         return render(request, 'cakeshop/products.html', context)
 
@@ -75,7 +75,7 @@ class Shop(View):
         cakes = Cake.objects.filter(category=pk)
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
         context = {'categories': categories,
-                   'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cakes}
+                   'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cheap_cakes}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 
@@ -138,13 +138,11 @@ class Cart(View):
         if request.user.is_authenticated == False:
             for item in cart:
                 if item['id'] == pk:
-
                     item['quantity'] += quantity
                     item['price'] = float(cake.price) + item['quantity']
                     cake_exit = True
 
             if not cake_exit:
-
                 new_item = {'id': pk, 'name': cake.name, 'image_url': cake.image_url,
                             'price': float(cake.price), 'quantity': quantity}
                 cart.append(new_item)
@@ -156,18 +154,11 @@ class Cart(View):
             username = request.user
             try:
                 order = Order.objects.get(user=username, cake_id=pk)
-                order.quantity += 1
-                # order.price = float(cake.price) + order.quantity
+                order.quantity += quantity
                 order.save()
-                cake_exit = True
             except Order.DoesNotExist:
                 order = Order.objects.create(
-                    user=username, cake_id=pk, quantity=1)
-                order.save()
-                cake_exit = True
-            if not cake_exit:
-                order = Order.objects.create(
-                    user=username, cake_id=item['id'], quantity=item['quantity'])
+                    user=username, cake_id=pk, quantity=quantity)
                 order.save()
             orders = Order.objects.filter(user=username)
             count = len(orders)
