@@ -262,3 +262,11 @@
     font-size: 1.6rem;
     background-color: rgb(47, 47, 47) !important;
 }
+
+.text-reset:hover {
+    color: var(--main-color) !important;
+    filter: brightness(1.75);
+    background-color: transparent;
+    color: var(--main-color) !important;
+    text-shadow: 0px 0px 8px var(--main-color);
+}
