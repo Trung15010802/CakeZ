@@ -15,15 +15,15 @@
             <div class="col-12 background-slider__column">
                 <div class="background-slider__list">
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_1.png);">
+                        style="background-image: url(../../static/img/slider_1.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_2.png);">
+                        style="background-image: url(../../static/img/slider_2.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                     <div class="background-slider__item background-slider__item-products img-fluid"
-                        style="background-image: url(/static/img/slider_3.png);">
+                        style="background-image: url(../../static/img/slider_3.png);">
                         <span class="background-slider__content">My kitchen <br> is for <br> dancing</span>
                     </div>
                 </div>
@@ -41,11 +41,24 @@
                     </div>
                     <ul class="row content__category-list">
                         {% for category in categories %}
+                        
                         <a href="{% url 'cakeshop:cate_detail' category.id %}"
                             class="col-lg-12 col-md-2 col-sm-3 content__category-link">
+                            
+                         
+                            
+                            {% if category.id == activeId %}
+                            <li class="content__category-item active">
+                                {{ category.name }}
+                            </li>
+                            {% else %}
                             <li class="content__category-item">
                                 {{ category.name }}
                             </li>
+                            {% endif %}
+                                
+                          
+                     
                         </a>
                         {% endfor %}
                     </ul>
@@ -54,7 +67,7 @@
                     <div class="row">
                         <a href="#">
                             <div class="advertisement__picture shine-box"
-                                style="background-image: url(./static/img/slider_2.png);">
+                                style="background-image: url(../../static/img/slider_2.png);">
                                 <div class="advertisement__discount-bg">
                                     <span class="advertisement__discount-text">-50%</span>
                                 </div>
@@ -67,23 +80,23 @@
                 <div class="row">
                     <div class="banner-wrapper">
                         <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_1.png);">
+                            style="background-image: url(../../static/img/home-item_1.png);">
 
                         </div>
                         <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_2.png);">
+                            style="background-image: url(../../static/img/home-item_2.png);">
 
                         </div>
                         <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_3.png);">
+                            style="background-image: url(../../static/img/home-item_3.png);">
 
                         </div>
                         <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_4.png);">
+                            style="background-image: url(../../static/img/home-item_4.png);">
 
                         </div>
                         <div class="col-12 banner_bacground"
-                            style="background-image: url(./static/img/home-item_5.png);">
+                            style="background-image: url(../../static/img/home-item_5.png);">
 
                         </div>
                     </div>
@@ -220,7 +233,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_1.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_1.png);"></div>
                                         <h4 class="comment__name">Diana Melverich</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -230,7 +243,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_2.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_2.png);"></div>
                                         <h4 class="comment__name">Annan joly</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -240,7 +253,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_3.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_3.png);"></div>
                                         <h4 class="comment__name">Tristiana Romeo</h4>
                                     </div>
                                     <div class="comment__wrapper">
@@ -250,7 +263,7 @@
                                             by injected humour, or randomised words which don't look even slightly
                                             believable.</p>
                                         <div class="comment__avatar"
-                                            style="background-image: url(./static/img/avatar_4.png);"></div>
+                                            style="background-image: url(../../static/img/avatar_4.png);"></div>
                                         <h4 class="comment__name">John Baker</h4>
                                     </div>
                                 </div>
@@ -262,7 +275,7 @@
                     <div class="row">
                         <a href="#">
                             <div class="advertisement__picture shine-box"
-                                style="background-image: url(./static/img/adv_1.png);">
+                                style="background-image: url(../../static/img/adv_1.png);">
                                 <div class="advertisement__discount-bg">
                                     <span class="advertisement__discount-text">-50%</span>
                                 </div>

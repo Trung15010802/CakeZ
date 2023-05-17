@@ -58,6 +58,7 @@
 .nav-link {
     font-size: 3.8rem;
     text-align: center;
+    color: var(--white-color) !important;
 }
 
 .nav-link:hover {
@@ -253,6 +254,8 @@
 
 .footer__content {
     font-size: 1.8rem;
+    text-transform: capitalize;
+    text-align: justify;
 }
 
 .footer__text {

@@ -31,6 +31,7 @@ body {
 .content__category-item {
     font-size: 2.8rem;
     padding-left: 20px;
+    text-transform: capitalize;
 }
 
 .content__category-item:hover {
@@ -245,7 +246,7 @@ body {
 } */
 
 .active {
-    /* background-color: var(--main-color) !important; */
+    background-color: var(--main-color) !important;
     border-radius: 4px;
     padding: 2px 8px;
 }

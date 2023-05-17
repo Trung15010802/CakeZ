@@ -74,7 +74,7 @@ class Shop(View):
         cakes = Cake.objects.filter(category=pk)
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
         context = {'categories': categories,
-                   'cakes': cakes, 'cheap_cakes': cheap_cakes, 'modals': cheap_cakes}
+                   'cakes': cakes, 'cheap_cakes': cheap_cakes, 'modals': cheap_cakes, 'activeId': pk}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 
@@ -204,6 +204,8 @@ class Cart(View):
                     break
             request.session['cart'] = cart
             total = sum([float(item['price']) for item in cart])
+            count = len(cart)
+            request.session['count'] = count
         else:
             username = request.user
             try:
@@ -218,6 +220,8 @@ class Cart(View):
                                 float(itemOrder.quantity)
             except Order.DoesNotExist:
                 pass
+            count = len(orders)
+            request.session['count'] = count
 
         request.session['total'] = total
         return redirect("/cart")
