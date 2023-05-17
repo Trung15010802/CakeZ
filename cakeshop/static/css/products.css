@@ -250,7 +250,11 @@ body {
     border-radius: 4px;
     padding: 2px 8px;
 }
+.active-cate{
+    background-color: var(--main-color) !important;
+    color: var(--white-color);
 
+}
 /* .page-item .disabled {
 
 } */
