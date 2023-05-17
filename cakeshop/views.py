@@ -1,13 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Cake, Order, Bill
-from django.contrib.auth.models import User
 from django.shortcuts import redirect
 import json
-import numpy as np
 from django.views import View
 from django.urls import reverse
 from django.core.paginator import Paginator
-
 # class
 
 
@@ -62,9 +59,10 @@ class Shop(View):
             cakes = Cake.objects.all()
 
         categories = Category.objects.all()
-        
+
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
-        context = {'categories': categories, 'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cheap_cakes}
+        context = {'categories': categories, 'cakes': cakes,
+                   'cheap_cakes': cheap_cakes, 'modals': cheap_cakes}
         return render(request, 'cakeshop/products.html', context)
 
     def cake_detail(request, pk):
@@ -76,7 +74,7 @@ class Shop(View):
         cakes = Cake.objects.filter(category=pk)
         cheap_cakes = Cake.objects.all().order_by('price')[:20]
         context = {'categories': categories,
-                   'cakes': cakes, 'cheap_cakes': cheap_cakes,'modals': cheap_cakes}
+                   'cakes': cakes, 'cheap_cakes': cheap_cakes, 'modals': cheap_cakes}
         return render(request, ['cakeshop/products.html', 'cakeshop/base.html'], context)
 
 
@@ -283,6 +281,9 @@ class BillView(View):
                                         'price': price, 'quantity': order.quantity}
                             cart.append(new_item)
                 request.session['total'] = total
+                orders = Order.objects.filter(user=username)
+                count = len(orders)
+                request.session['count'] = count
                 context = {'cart': cart}
                 return render(request, 'cakeshop/create_bill.html', context)
 
@@ -301,3 +302,4 @@ class BillView(View):
 
         context = {'bills': bills}
         return render(request, 'cakeshop/purchase_history.html', context)
+

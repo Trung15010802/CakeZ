@@ -39,11 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'cakeshop',
-    'paypal.standard.ipn'
 ]
 
-PAYPAL_TEST = True # Sử dụng sandbox cho môi trường kiểm thử
-PAYPAL_RECEIVER_EMAIL = 'handsomezezo@gmail.com' # Email của tài khoản PayPal
 
 
 MIDDLEWARE = [
